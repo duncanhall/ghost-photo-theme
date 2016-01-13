@@ -3,13 +3,14 @@
     Header
 ***********************************/
 .main-photo-header {
-    width: 100%;
+    width: 80%;
     background: #FFFFFF;
-    height: 30px;
+    height: 64px;
     z-index: 10;
     padding-top: 20px;
-    padding-left: 20px;
     font-size: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .main-photo-header a {
@@ -18,9 +19,31 @@
 
 .fixed-nav .main-photo-header {
     position: fixed;
-    top: 0;
-    left:0;
-    width: 100%;
+    width: 80%;
+}
+
+nav ol {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ol li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+nav ol li:last-child {
+    float: right;
+    font-weight: 300;
+}
+
+/***********************************
+    Content
+***********************************/
+.scrollable-content {
+    padding-top: 150px;
 }
 
 /***********************************
@@ -50,21 +73,95 @@
     padding-bottom: 0;
 }
 
-@media (max-width: 550px) {
-    .post-gallery .post-gallery-item img {
+@media (max-width: 500px) {
+    .main-photo-header {
         width: 100%;
-        height: auto;
+        height: 46px;
+        font-size: 2.4rem;
+    }
+
+    nav ol li:first-child {
+        margin-left: 6px;
+    }
+
+    nav ol li:last-child {
+        margin-right: 6px;
+    }
+
+    .post-content img {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        -webkit-transform: translateX(-50%) !important;
+    }
+
+    .post-content table {
+        font-size: 15px;
+    }
+
+    .post-content table td {
+        padding-bottom: 4px !important;
+    }
+
+    .post-content table:last-child {
+        margin-top: 0 !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .post-content table {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 1140px) {
+
+    .post-content p {
+        display: block !important;
+        float: none !important;
+    }
+
+    .post-content img {
+        max-height: none;
+    }
+
+    .post-content table {
+        margin: 0 20px 1em 0 !important;
     }
 }
 
 /***********************************
     Post / photo page
 ***********************************/
+.post-content p {
+    display: inline-block;
+    margin-bottom: 12px;
+    float: left;
+}
 
 .post-content img {
     border: 1px solid #DDDDDD;
     margin: 0;
     padding: 0;
+    max-height: 818px;
+    display: inline-block;
+    left: 0;
+    transform: none;
+    -webkit-transform: none;
+}
+
+.post-content table {
+    display: inline-block;
+    width: auto;
+    vertical-align: top;
+    margin-top: 0;
+}
+
+.post-content table:last-child {
+    margin-left: 3em;
+}
+
+.post-content table.portrait {
+    margin: 0 0 1em 1.75em;
 }
 
 .post-content table tbody > tr:nth-child(odd) > td {
@@ -82,10 +179,19 @@
     background-color: #FFFFFF;
 }
 
-.post-content table td:nth-child(odd) {
-    width: 200px
+.post-content table td:first-child {
+    padding-right: 20px
 }
 
-.post-content table {
-    background-color: #454545;
+.content-nav {
+    width: 100%;
+    clear: both;
+}
+
+.content-nav span:nth-child(2) {
+    float: right;
+}
+
+.content-nav a {
+    text-decoration: none;
 }

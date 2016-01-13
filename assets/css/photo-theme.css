@@ -19,7 +19,9 @@
 
 .fixed-nav .main-photo-header {
     position: fixed;
-    width: 80%;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    -webkit-transform: translateX(-50%) !important;
 }
 
 nav ol {
@@ -34,9 +36,10 @@ nav ol li {
     padding: 0;
 }
 
-nav ol li:last-child {
+nav ol li:nth-child(2), nav ol li:last-child {
     float: right;
     font-weight: 300;
+    margin-left: 20px;
 }
 
 /***********************************

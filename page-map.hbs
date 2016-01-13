@@ -1,0 +1,50 @@
+{{!< default}}
+
+{{! This is a page template. A page outputs content just like any other post, and has all the same
+    attributes by default, but you can also customise it to behave differently if you prefer. }}
+
+{{! Everything inside the #post tags pulls data from the page }}
+{{#post}}
+
+    <header class="fixed-nav">
+        {{> "main-header"}}
+    </header>
+
+    <main class="content" role="main">
+        <article class="{{post_class}}">
+
+            <div id="map" style="width: 900px; height: 600px; border: 1px solid #DDDDDD; margin: 100px 0 0 0"></div>
+            <script type="text/javascript">
+
+                var styleArray = [
+                    {
+                        featureType: "all",
+                        stylers: [
+                            { saturation: -70 },
+                            {lightness: 10}
+                        ]
+                    },{
+                        featureType: "poi.business",
+                        elementType: "labels",
+                        stylers: [
+                            { visibility: "off" }
+                        ]
+                    }
+                ];
+
+                var map;
+                function initMap() {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: {lat: 51.5192, lng: -0.093617},
+                        zoom: 17,
+                        styles: styleArray
+                    });
+                }
+
+            </script>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD12u5uURu5oBbCbk1GB5LUG4vASD3dDoY&callback=initMap">
+            </script>
+        </article>
+    </main>
+{{/post}}

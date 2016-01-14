@@ -1,9 +1,5 @@
 {{!< default}}
 
-{{! The comment above "< default" means - insert everything in this file into
-    the {body} of the default.hbs template, which contains our header/footer. }}
-
-{{! Everything inside the #post tags pulls data from the post }}
 {{#post}}
 
 <header>
@@ -18,16 +14,35 @@
         <div class="content-nav">
                 <span>
                     {{#next_post}}
-                        <a href="{{url}}">&larr;</a>
+                        <a href="{{url}}" id="next-post-link">&larr;</a>
                     {{/next_post}}
                 </span>
                 <span>
                     {{#prev_post}}
-                        <a href="{{url}}">&rarr;</a>
+                        <a href="{{url}}" id="prev-post-link">&rarr;</a>
                     {{/prev_post}}
                 </span>
         </div>
     </article>
 </main>
+<script type="text/javascript" src="{{asset "js/hammer.min.js"}}"></script>
+    <script>
+        var hammertime = new Hammer(document.body, {});
+        var anchor;
+        hammertime.on('swipeleft', function(event) {
+            navigateToAdjacent('#prev-post-link');
+        });
+
+        hammertime.on('swiperight', function(event) {
+            navigateToAdjacent('#next-post-link');
+        });
+
+        function navigateToAdjacent (id) {
+            anchor = $(id);
+            if (anchor && anchor.attr('href')) {
+                window.location = anchor.attr('href');
+            }
+        }
+    </script>
 
 {{/post}}

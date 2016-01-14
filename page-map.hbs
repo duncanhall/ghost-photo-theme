@@ -8,26 +8,12 @@
     <article class="{{post_class}}">
 
         <div id="map" style="width: 900px; height: 600px; border: 1px solid #888888; margin: 100px 0 0 0"></div>
-        <script type="text/javascript">
+        <script type="text/javascript" async defer>
 
             var locations = [];
             var mapReady = false;
             var pointsLoaded = false;
             var map;
-
-            $.get(ghost.url.api('posts', {limit:'all', include:'tags'})).done(function (data){
-                locations = data.posts.map(function (post) {
-                    var gps = post.tags[0].name.split('|');
-                    return {url: post.url, lat:gps[0], long:gps[1]}
-                });
-                pointsLoaded = true;
-                if (mapReady) {
-                    initMap();
-                }
-
-            }).fail(function (err){
-                console.err(err);
-            });
 
             var styleArray = [
                 {
@@ -36,25 +22,25 @@
                         {saturation: -100},
                         {lightness: 10}
                     ]
-                },{
+                }, {
                     featureType: "poi.business",
                     elementType: "labels",
                     stylers: [
                         {visibility: "off"}
                     ]
-                },{
+                }, {
                     featureType: "landscape",
                     elementType: "geometry.stroke",
                     stylers: [
                         {color: "#666666"}
                     ]
-                },{
+                }, {
                     featureType: "poi",
                     elementType: "geometry.stroke",
                     stylers: [
                         {color: "#666666"}
                     ]
-                },{
+                }, {
                     featureType: "water",
                     stylers: [
                         {color: "#BBBBBC"}
@@ -62,7 +48,28 @@
                 }
             ];
 
+            function defer(method) {
+                if (window.jQuery)
+                    method();
+                else
+                    setTimeout(function() { defer(method) }, 50);
+            }
 
+            function getPostTags () {
+                $.get(ghost.url.api('posts', {limit: 'all', include: 'tags'})).done(function (data) {
+                    locations = data.posts.map(function (post) {
+                        var gps = post.tags[0].name.split('|');
+                        return {url: post.url, lat: gps[0], long: gps[1]}
+                    });
+                    pointsLoaded = true;
+                    if (mapReady) {
+                        initMap();
+                    }
+
+                }).fail(function (err) {
+                    console.err(err);
+                });
+            }
 
             function mapLoaded () {
                 mapReady = true;
@@ -103,6 +110,8 @@
                     });
                 }
             }
+
+            defer(getPostTags);
         </script>
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD12u5uURu5oBbCbk1GB5LUG4vASD3dDoY&callback=mapLoaded">

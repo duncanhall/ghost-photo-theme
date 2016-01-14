@@ -1,50 +1,111 @@
 {{!< default}}
 
-{{! This is a page template. A page outputs content just like any other post, and has all the same
-    attributes by default, but you can also customise it to behave differently if you prefer. }}
+<header class="fixed-nav">
+    {{> "main-header"}}
+</header>
 
-{{! Everything inside the #post tags pulls data from the page }}
-{{#post}}
+<main class="content" role="main">
+    <article class="{{post_class}}">
 
-    <header class="fixed-nav">
-        {{> "main-header"}}
-    </header>
+        <div id="map" style="width: 900px; height: 600px; border: 1px solid #888888; margin: 100px 0 0 0"></div>
+        <script type="text/javascript">
 
-    <main class="content" role="main">
-        <article class="{{post_class}}">
+            var locations = [];
+            var mapReady = false;
+            var pointsLoaded = false;
+            var map;
 
-            <div id="map" style="width: 900px; height: 600px; border: 1px solid #DDDDDD; margin: 100px 0 0 0"></div>
-            <script type="text/javascript">
-
-                var styleArray = [
-                    {
-                        featureType: "all",
-                        stylers: [
-                            { saturation: -70 },
-                            {lightness: 10}
-                        ]
-                    },{
-                        featureType: "poi.business",
-                        elementType: "labels",
-                        stylers: [
-                            { visibility: "off" }
-                        ]
-                    }
-                ];
-
-                var map;
-                function initMap() {
-                    map = new google.maps.Map(document.getElementById('map'), {
-                        center: {lat: 51.5192, lng: -0.093617},
-                        zoom: 17,
-                        styles: styleArray
-                    });
+            $.get(ghost.url.api('posts', {limit:'all', include:'tags'})).done(function (data){
+                locations = data.posts.map(function (post) {
+                    var gps = post.tags[0].name.split('|');
+                    return {url: post.url, lat:gps[0], long:gps[1]}
+                });
+                pointsLoaded = true;
+                if (mapReady) {
+                    initMap();
                 }
 
-            </script>
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD12u5uURu5oBbCbk1GB5LUG4vASD3dDoY&callback=initMap">
-            </script>
-        </article>
-    </main>
-{{/post}}
+            }).fail(function (err){
+                console.err(err);
+            });
+
+            var styleArray = [
+                {
+                    featureType: "all",
+                    stylers: [
+                        {saturation: -100},
+                        {lightness: 10}
+                    ]
+                },{
+                    featureType: "poi.business",
+                    elementType: "labels",
+                    stylers: [
+                        {visibility: "off"}
+                    ]
+                },{
+                    featureType: "landscape",
+                    elementType: "geometry.stroke",
+                    stylers: [
+                        {color: "#666666"}
+                    ]
+                },{
+                    featureType: "poi",
+                    elementType: "geometry.stroke",
+                    stylers: [
+                        {color: "#666666"}
+                    ]
+                },{
+                    featureType: "water",
+                    stylers: [
+                        {color: "#BBBBBC"}
+                    ]
+                }
+            ];
+
+
+
+            function mapLoaded () {
+                mapReady = true;
+                if (pointsLoaded) {
+                    initMap();
+                }
+            }
+
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 51.5192, lng: -0.093617},
+                    zoom: 17,
+                    styles: styleArray,
+                    disableDefaultUI: true
+                });
+
+                var p;
+
+                for (var i = 0; i < locations.length; i++) {
+                    p = locations[i];
+
+                    var marker = new google.maps.Marker({
+                        position: {lat: parseFloat(p.lat), lng:parseFloat(p.long)},
+                        icon: {
+                            path: google.maps.SymbolPath.CIRCLE,
+                            scale: 4,
+                            strokeWeight: 1,
+                            strokeOpacity: 1,
+                            fillOpacity: 0.8,
+                            fillColor: '#EBBA0C'
+                        },
+                        map: map,
+                        url: p.url
+                    });
+
+                    google.maps.event.addListener(marker, 'click', function() {
+                        window.location.href = this.url;
+                    });
+                }
+            }
+        </script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD12u5uURu5oBbCbk1GB5LUG4vASD3dDoY&callback=mapLoaded">
+        </script>
+    </article>
+</main>

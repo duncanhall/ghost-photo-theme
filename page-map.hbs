@@ -1,13 +1,13 @@
 {{!< default}}
 
-<header class="fixed-nav">
+<header>
     {{> "main-header"}}
 </header>
 
 <main class="content" role="main">
     <article class="{{post_class}}">
 
-        <div id="map" style="width: 900px; height: 600px; border: 1px solid #888888; margin: 100px 0 0 0"></div>
+        <div id="map"></div>
         <script type="text/javascript" async defer>
 
             var locations = [];
@@ -87,10 +87,8 @@
                 });
 
                 var p;
-
                 for (var i = 0; i < locations.length; i++) {
                     p = locations[i];
-
                     var marker = new google.maps.Marker({
                         position: {lat: parseFloat(p.lat), lng:parseFloat(p.long)},
                         icon: {

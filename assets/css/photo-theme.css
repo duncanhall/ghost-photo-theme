@@ -46,7 +46,7 @@ nav ol li:nth-child(2), nav ol li:last-child {
     Content
 ***********************************/
 .scrollable-content {
-    padding-top: 150px;
+    padding-top: 50px;
 }
 
 /***********************************
@@ -72,7 +72,8 @@ nav ol li:nth-child(2), nav ol li:last-child {
 
 .post-gallery .post-gallery-item img {
     height: 160px;
-    margin-bottom: 0;
+    margin-bottom: 10px;
+    margin-right: 10px;
     padding-bottom: 0;
 }
 
@@ -82,13 +83,9 @@ nav ol li:nth-child(2), nav ol li:last-child {
         height: 46px;
         font-size: 2.4rem;
     }
-
-    nav ol li:first-child {
-        margin-left: 6px;
-    }
-
-    nav ol li:last-child {
-        margin-right: 6px;
+    
+    nav ol li:nth-child(2) {
+        margin-right: 10px !important;
     }
 
     .post-content img {
@@ -110,6 +107,12 @@ nav ol li:nth-child(2), nav ol li:last-child {
     }
 }
 
+@media (max-width: 550px) {
+    .main-photo-header, .post-gallery, .post {
+        width: 94%;
+    }
+}
+
 @media (max-width: 400px) {
     .post-content table {
         font-size: 13px;
@@ -117,6 +120,10 @@ nav ol li:nth-child(2), nav ol li:last-child {
 }
 
 @media (max-width: 1140px) {
+
+    .post-gallery .post-gallery-item img {
+        height: 120px;
+    }
 
     .post-content p {
         display: block !important;
@@ -197,4 +204,12 @@ nav ol li:nth-child(2), nav ol li:last-child {
 
 .content-nav a {
     text-decoration: none;
+}
+
+#map {
+    width: 100%;
+    max-width: 900px;
+    height: 600px;
+    border: 1px solid #888888;
+    margin: 100px 0 0 0;
 }

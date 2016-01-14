@@ -1,4 +1,8 @@
 
+body{
+    min-width: 320px;
+}
+
 /***********************************
     Header
 ***********************************/
@@ -72,8 +76,8 @@ nav ol li:nth-child(2), nav ol li:last-child {
 
 .post-gallery .post-gallery-item img {
     height: 160px;
-    margin-bottom: 10px;
-    margin-right: 10px;
+    margin-bottom: 8px;
+    margin-right: 6px;
     padding-bottom: 0;
 }
 
@@ -83,7 +87,7 @@ nav ol li:nth-child(2), nav ol li:last-child {
         height: 46px;
         font-size: 2.4rem;
     }
-    
+
     nav ol li:nth-child(2) {
         margin-right: 10px !important;
     }
@@ -105,11 +109,19 @@ nav ol li:nth-child(2), nav ol li:last-child {
     .post-content table:last-child {
         margin-top: 0 !important;
     }
+
+    .post.page {
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 550px) {
     .main-photo-header, .post-gallery, .post {
         width: 94%;
+    }
+
+    #map {
+        height: 400px !important;
     }
 }
 
@@ -182,6 +194,10 @@ nav ol li:nth-child(2), nav ol li:last-child {
     border: none;
 }
 
+.post-content table:nth-child(2) td:nth-child(2n+2) {
+    width: 44px;
+}
+
 .post-content table td {
     padding: 0 0 8px 0;
     margin: 0;
@@ -211,5 +227,5 @@ nav ol li:nth-child(2), nav ol li:last-child {
     max-width: 900px;
     height: 600px;
     border: 1px solid #888888;
-    margin: 100px 0 0 0;
+    margin: 0;
 }

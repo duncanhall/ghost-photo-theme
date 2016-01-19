@@ -58,7 +58,8 @@
             function getPostTags () {
                 $.get(ghost.url.api('posts', {limit: 'all', include: 'tags'})).done(function (data) {
                     locations = data.posts.map(function (post) {
-                        var gps = post.tags[0].name.split('|');
+                        function isCoordinates(o) { return o.name.indexOf('|') > -1; }
+                        var gps = post.tags.filter(isCoordinates)[0].name.split('|');
                         return {url: post.url, lat: gps[0], long: gps[1]}
                     });
                     pointsLoaded = true;

@@ -11,6 +11,17 @@
         <section class="post-content">
             {{content}}
         </section>
+
+        <div class="social-content">
+            <div class="social-content-item">
+                <div class="fb-like" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+            </div>
+            <div class="social-content-item">
+                <a href="https://twitter.com/share" class="twitter-share-button"{count}>Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+        </div>
+
         <div class="content-nav">
                 <span>
                     {{#next_post}}
@@ -26,32 +37,14 @@
     </article>
 </main>
 <script type="text/javascript" src="{{asset "js/hammer.min.js"}}"></script>
-<script>
-    var hammertime = new Hammer(document.body, {});
-    var anchor;
-    hammertime.on('swipeleft', function(event) {
-        navigateToAdjacent('#prev-post-link');
-    });
-
-    hammertime.on('swiperight', function(event) {
-        navigateToAdjacent('#next-post-link');
-    });
-
-    document.body.addEventListener('keydown', function(event) {
-        if (event.keyCode === 39) {
-            navigateToAdjacent('#prev-post-link');
-        }
-        else if (event.keyCode === 37) {
-            navigateToAdjacent('#next-post-link');
-        }
-    });
-
-    function navigateToAdjacent (id) {
-        anchor = $(id);
-        if (anchor && anchor.attr('href')) {
-            window.location = anchor.attr('href');
-        }
-    }
+<script type="text/javascript" src="{{asset "js/navigation.js"}}"></script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=943233365753250";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 </script>
-
 {{/post}}

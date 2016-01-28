@@ -346,3 +346,11 @@ h1.post-title {
     max-width: 580px;
     margin: 0 auto;
 }
+
+.map {
+ font-weight: 300;
+}
+
+.map p {
+    margin-top: 10px;
+}

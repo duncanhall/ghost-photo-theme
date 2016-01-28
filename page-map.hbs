@@ -1,13 +1,17 @@
 {{!< default}}
+{{#post}}
 
 <header>
     {{> "main-header"}}
 </header>
 
 <main class="content" role="main">
-    <article class="{{post_class}}">
+    <article class="{{post_class}} map">
 
         <div id="map"></div>
+        <section class="post-content">
+            {{content}}
+        </section>
         <script type="text/javascript" async defer>
 
             var locations = [];
@@ -117,3 +121,4 @@
         </script>
     </article>
 </main>
+{{/post}}
